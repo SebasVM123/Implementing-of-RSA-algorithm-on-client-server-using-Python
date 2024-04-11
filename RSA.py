@@ -1,6 +1,7 @@
 from Crypto.Util import number
+from Crypto.Util.number import bytes_to_long, long_to_bytes
 
-n_bits = 64
+n_bits = 18
 
 
 def extended_euclidean_algorithm(a, b):
@@ -34,7 +35,6 @@ class RSA:
         self.n = p * q
         phi_n = (p - 1) * (q - 1)
 
-        self.public_key = (self.e, self.n)
         self.private_key = self.generate_private_key(phi_n)
 
     def generate_prime_numbers(self):
@@ -42,21 +42,36 @@ class RSA:
         q = number.getPrime(int(n_bits/2))
 
         while p == q:
-            p = number.getPrime(1024)
-            q = number.getPrime(1024)
+            p = number.getPrime(int(n_bits/2))
+            q = number.getPrime(int(n_bits/2))
 
-        while p % self.e == 1:
-            p = number.getPrime(1024)
+        while self.e % (p - 1) == 0:
+            p = number.getPrime(int(n_bits/2))
 
-        while q % self.e == 1:
-            q = number.getPrime(1024)
+        while self.e % (q - 1) == 0:
+            q = number.getPrime(int(n_bits/2))
 
         return p, q
 
     def generate_private_key(self, phi_n):
         d = extended_euclidean_algorithm(self.e, phi_n)
-        return d, self.n
+        return d
+
+    def decrypt(self, crypto_message):
+        c = crypto_message
+        m = (c ** self.private_key) % self.n
+        return m
+
+    def get_public_key(self):
+        return self.e, self.n
+
+    @staticmethod
+    def encrypt(message, public_key):
+        e = public_key[0]
+        n = public_key[1]
+        int_message = bytes_to_long(message)
+        c = (int_message ** e) % n
+        return c
 
 
 rsa = RSA(e=65537)
-print(rsa.public_key, rsa.private_key)
