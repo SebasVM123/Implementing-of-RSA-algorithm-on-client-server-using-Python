@@ -24,14 +24,13 @@ def extended_euclidean_algorithm(a, b):
         v[i - 1] += b
 
     x = v[i - 1]
-
     return x
 
 
 class RSA:
     def __init__(self, e=65537):
         self.e = e
-        p, q = 839, 947
+        p, q = self.generate_prime_numbers()
         self.n = p * q
         phi_n = (p - 1) * (q - 1)
 
@@ -59,5 +58,5 @@ class RSA:
         return d, self.n
 
 
-rsa = RSA(e=41)
+rsa = RSA(e=65537)
 print(rsa.public_key, rsa.private_key)
