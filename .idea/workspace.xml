@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2037595-b557-45ad-84d4-54dbe5379737" name="Changes" comment="Feat: agrega los métodos para encriptar y desencriptar">
-      <change beforePath="$PROJECT_DIR$/.idea/RSA algorithm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RSA algorithm.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="c2037595-b557-45ad-84d4-54dbe5379737" name="Changes" comment="Feat: agrega las clases que representan el servidor y el cliente">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RSA.py" beforeDir="false" afterPath="$PROJECT_DIR$/MODEL/RSA.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/MODEL/client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2.py" beforeDir="false" afterPath="$PROJECT_DIR$/MODEL/client2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/MODEL/server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +56,10 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Asus\PycharmProjects\RSA algorithm" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Asus\PycharmProjects\RSA algorithm\GUI" />
+      <recent name="C:\Users\Asus\PycharmProjects\RSA algorithm\MODEL" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.client">
     <configuration name="RSA" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -68,7 +75,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RSA.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Asus\PycharmProjects\RSA algorithm\MODEL\RSA.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -90,7 +97,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/client.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Asus\PycharmProjects\RSA algorithm\MODEL\client.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -112,7 +119,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/client2.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Asus\PycharmProjects\RSA algorithm\MODEL\client2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -134,7 +141,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/server.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Asus\PycharmProjects\RSA algorithm\MODEL\server.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -192,13 +199,22 @@
       <option name="project" value="LOCAL" />
       <updated>1712842492775</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Feat: agrega las clases que representan el servidor y el cliente">
+      <option name="closed" value="true" />
+      <created>1712853082236</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1712853082236</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Feat: se añade el algoritmo RSA y el algoritmo de euclides extendido" />
     <MESSAGE value="Feat: se agrega el archivo de instalación de requerimientos" />
     <MESSAGE value="Feat: agrega los métodos para encriptar y desencriptar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: agrega los métodos para encriptar y desencriptar" />
+    <MESSAGE value="Feat: agrega las clases que representan el servidor y el cliente" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: agrega las clases que representan el servidor y el cliente" />
   </component>
 </project>
