@@ -1,14 +1,20 @@
 import socket
 import threading
 
+from RSA import RSA
+
 FORMAT = 'utf-8'
 
 
 class Client:
     def __init__(self, host, port):
+        self.rsa = RSA()
+        self.server_public_key = None
+
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.name = self.login()
         self.socket.connect((host, port))
+        print(f'Now connected to SERVER in {host}:{port}')
 
     @staticmethod
     def login():
@@ -24,7 +30,14 @@ class Client:
                 data = self.socket.recv(1024)
                 if not data:
                     break
-                print(f'Received data from SERVER: {data.decode(FORMAT)}')
+
+                if not self.server_public_key and data.decode(FORMAT)[:5] == '%NAME':
+                    self.server_public_key = data.decode(FORMAT).split('|')[1]
+
+                    client_public_key = self.rsa.get_public_key()
+                    self.socket.sendall(f'{self.name}|{client_public_key}'.encode(FORMAT))
+                else:
+                    print(f'Received data from SERVER: {data.decode(FORMAT)}')
             except socket.error:
                 break
 
@@ -38,3 +51,5 @@ class Client:
 
 client = Client('localhost', 5000)
 client.start()
+
+client.send_data('1234')
