@@ -10,6 +10,7 @@ class Server:
         self.port = port
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.connections = []
+        self.clients = {}
 
     def listen(self):
         self.socket.bind((self.host, self.port))
@@ -18,6 +19,8 @@ class Server:
 
         while True:
             connection, address = self.socket.accept()
+
+            self.ask_name(connection)
             self.connections.append(connection)
             print(f'Accepted connection from {address}')
             threading.Thread(target=self.handle_client, args=(connection, address)).start()
@@ -36,12 +39,18 @@ class Server:
         self.connections.remove(connection)
         connection.close()
 
-    def send_data(self, data):
+    def send_data(self, data, client_name):
         for connection in self.connections:
             try:
                 connection.sendall(data.encode())
             except socket.error as e:
                 print(f'Failed to send data. Error: {e}')
+
+    def ask_name(self, connection):
+        connection.sendall('NAME'.encode(FORMAT))
+        data = connection.recv(1024).decode(FORMAT)
+        name, public_key = data.split('|')
+        self.clients[name] = [connection, public_key]
 
     def start(self):
         listen_thread = threading.Thread(target=self.listen)

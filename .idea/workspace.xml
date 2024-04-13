@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2037595-b557-45ad-84d4-54dbe5379737" name="Changes" comment="Feat: agrega un controlador para el cliente y el servidor">
-      <change afterPath="$PROJECT_DIR$/GUI/gui.py" afterDir="false" />
+    <list default="true" id="c2037595-b557-45ad-84d4-54dbe5379737" name="Changes" comment="Feat: conexión básica entre servidor y cliente">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MODEL/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/MODEL/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +213,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712866048372</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Feat: conexión básica entre servidor y cliente">
+      <option name="closed" value="true" />
+      <created>1713025776060</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1713025776060</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -222,6 +230,7 @@
     <MESSAGE value="Feat: agrega los métodos para encriptar y desencriptar" />
     <MESSAGE value="Feat: agrega las clases que representan el servidor y el cliente" />
     <MESSAGE value="Feat: agrega un controlador para el cliente y el servidor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: agrega un controlador para el cliente y el servidor" />
+    <MESSAGE value="Feat: conexión básica entre servidor y cliente" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: conexión básica entre servidor y cliente" />
   </component>
 </project>

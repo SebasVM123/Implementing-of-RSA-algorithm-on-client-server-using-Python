@@ -9,7 +9,6 @@ class Client:
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.name = self.login()
         self.socket.connect((host, port))
-        print(f'Now connected to SERVER in {host}:{port}')
 
     @staticmethod
     def login():
@@ -25,10 +24,7 @@ class Client:
                 data = self.socket.recv(1024)
                 if not data:
                     break
-                if data.decode(FORMAT) == 'NAME':
-                    self.socket.sendall(f'{self.name}|clave'.encode(FORMAT))
-                else:
-                    print(f'Received data from SERVER: {data.decode(FORMAT)}')
+                print(f'Received data from SERVER: {data.decode(FORMAT)}')
             except socket.error:
                 break
 
