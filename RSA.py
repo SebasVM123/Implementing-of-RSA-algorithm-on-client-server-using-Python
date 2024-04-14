@@ -1,5 +1,4 @@
 from Crypto.Util import number
-from cryptography.fernet import Fernet
 
 key_size = 18
 FORMAT = 'UTF-8'
@@ -75,12 +74,6 @@ class RSA:
         c = crypto_message
         m = (c ** self.private_key) % self.n
         return m
-
-
-class HybridCipher:
-    def __init__(self):
-        self.rsa = RSA()
-
 
 
 '''rsa = RSA()

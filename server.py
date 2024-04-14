@@ -1,5 +1,7 @@
 import socket
 import threading
+import tkinter as tk
+from tkinter import ttk
 
 from RSA import RSA
 
@@ -13,46 +15,102 @@ class Server:
         self.host = host
         self.port = port
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.connections = []
         self.clients = {}
+
+        self.chat_gui()
+
+    def chat_gui(self):
+        def process_message():
+            message = self.message_entry.get()
+            if message:
+                self.type_error_label.config(text='')
+                self.message_entry.delete(0, tk.END)
+                if message.isdigit():
+                    if self.clients:
+                        self.type_error_label.config(text='')
+                        self.messages_area.insert(tk.END, f'[SERVER]: {message}\n')
+                        data = message
+                        client = self.selected_option.get()
+                        if client == 'All':
+                            self.broadcast_data(data)
+                        else:
+                            self.send_data(data, client)
+                    else:
+                        self.type_error_label.config(text='No one online')
+                else:
+                    self.type_error_label.config(text='You must enter an integer number')
+            else:
+                self.type_error_label.config(text='You must enter a message')
+
+        self.window = tk.Tk()
+        self.window.title('Client-Server Chat [SERVER]')
+
+        self.messages_area = tk.Text(self.window)
+        self.messages_area.pack(expand=True, fill=tk.BOTH)
+
+        self.message_entry = tk.Entry(self.window)
+        self.message_entry.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+
+        self.send_btn = tk.Button(self.window, text='Send', command=process_message)
+        self.send_btn.pack(side=tk.RIGHT)
+
+        self.type_error_label = tk.Label(self.window, text='', fg='red')
+        self.type_error_label.pack()
+
+        options = ['All']
+        self.selected_option = tk.StringVar(self.window)
+        self.selected_option.set('All')
+        self.clients_combobox = ttk.Combobox(self.window, textvariable=self.selected_option, values=options,
+                                             state='readonly')
+        self.clients_combobox.pack()
+
+        self.start() # Crea el hilo secundario para escuchar
 
     def listen(self):
         self.socket.bind((self.host, self.port))
         self.socket.listen(10)
+        self.messages_area.insert(tk.END, f'[SERVER STARTED ON {self.host}:{self.port}]\n')
         print(f'Server started on {self.host}:{self.port}')
 
         while True:
             connection, address = self.socket.accept()
 
-            self.ask_name(connection)
-            self.connections.append(connection)
-            print(f'Accepted connection from {address}')
-            threading.Thread(target=self.handle_client, args=(connection, address)).start()
+            name = self.ask_name(connection)
 
-    def handle_client(self, connection, address):
+            self.clients_combobox['values'] = ['All'] + list(self.clients.keys())
+            self.messages_area.insert(tk.END, f'[{name} connected]\n')
+            print(f'Accepted connection from {address}')
+            threading.Thread(target=self.handle_client, args=(name, connection)).start()
+
+    def handle_client(self, name, connection):
         while True:
             try:
                 data = connection.recv(1024)
                 if not data:
                     break
                 decrypted_data = self.rsa.decrypt(int(data.decode(FORMAT)))
-                print(f'Received data from {address}: {decrypted_data}')
+                self.messages_area.insert(tk.END, f'[{name}]: {decrypted_data}\n')
+                print(f'Received data from {connection.getpeername()}: {decrypted_data}')
             except socket.error:
                 break
 
-        print(f"Connection from {address} closed.")
-        self.connections.remove(connection)
+        self.messages_area.insert(tk.END, f'[{name} CLOSED THE CONNECTION]\n')
+        print(f"Connection from {connection.getpeername()} closed.")
         connection.close()
 
     def send_data(self, data, client_name):
-        '''for connection in self.connections:
-            try:
-                connection.sendall(data.encode())
-            except socket.error as e:
-                print(f'Failed to send data. Error: {e}')'''
         connection, client_public_key = self.clients[client_name]
         encrypted_data = self.rsa.encrypt(int(data), client_public_key)
         connection.sendall(str(encrypted_data).encode(FORMAT))
+
+    def broadcast_data(self, data):
+        for client_connection, client_public_key in self.clients.values():
+            try:
+                encrypted_data = self.rsa.encrypt(int(data), client_public_key)
+                client_connection.sendall(str(encrypted_data).encode(FORMAT))
+            except socket.error as es:
+                self.messages_area.insert(tk.END, f'[FAILED TO SEND DATA]')
+                print(f'Failed to send data. Error: {es}')
 
     def ask_name(self, connection):
         server_public_key = self.rsa.get_public_key()
@@ -60,6 +118,7 @@ class Server:
         data = connection.recv(1024).decode(FORMAT)
         name, public_key = data.split('|')
         self.clients[name] = (connection, eval(public_key))
+        return name
 
     def start(self):
         listen_thread = threading.Thread(target=self.listen)
@@ -67,11 +126,8 @@ class Server:
 
 
 server = Server('localhost', 5000)
-server.start()
+server.window.mainloop()
 
 '''import time
-time.sleep(20)
-server.send_data('4567')'''
-import time
 time.sleep(5)
-server.send_data('1234500', 'Sebas')
+server.send_data('1234500', 'Sebas')'''
