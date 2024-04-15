@@ -5,30 +5,6 @@ key_size = 2048
 FORMAT = 'UTF-8'
 
 
-def extended_euclidean_algorithm(a, b):
-    g = [b, a]
-    u = [1, 0]
-    v = [0, 1]
-
-    i = 1
-
-    while g[i] != 0:
-        y = g[i - 1] // g[i]
-        next_g = g[i - 1] - (y * g[i])
-        next_u = u[i - 1] - (y * u[i])
-        next_v = v[i - 1] - (y * v[i])
-        g.append(next_g)
-        u.append(next_u)
-        v.append(next_v)
-        i += 1
-
-    if v[i - 1] < 0:
-        v[i - 1] += b
-
-    x = v[i - 1]
-    return x
-
-
 class RSA:
     def __init__(self, e=65537):
         self.e = e
