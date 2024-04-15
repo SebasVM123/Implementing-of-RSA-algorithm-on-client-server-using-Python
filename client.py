@@ -12,8 +12,6 @@ class Client:
         self.rsa = RSA()
         self.server_public_key = None
 
-        print(self.rsa.get_public_key())
-
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_address = (host, port)
 
@@ -58,13 +56,9 @@ class Client:
             if message:
                 self.type_error_label.config(text='')
                 self.message_entry.delete(0, tk.END)
-                if message.isdigit():
-                    self.type_error_label.config(text='')
-                    self.messages_area.insert(tk.END, f'[Me]: {message}\n')
-                    data = message
-                    self.send_data(data)
-                else:
-                    self.type_error_label.config(text='You must be enter an integer number')
+                self.messages_area.insert(tk.END, f'[Me]: {message}\n')
+                data = message
+                self.send_data(data)
             else:
                 self.type_error_label.config(text='You must be enter a message')
 
@@ -89,12 +83,11 @@ class Client:
         self.socket.connect(self.server_address)
 
     def send_data(self, data):
-        encrypted_data = self.rsa.encrypt(int(data), self.server_public_key)
+        encrypted_data = self.rsa.encrypt(data, self.server_public_key)
         self.socket.sendall(str(encrypted_data).encode(FORMAT))
 
     def receive_data(self):
         while True:
-            print(1)
             try:
                 data = self.socket.recv(1024)
                 if not data:

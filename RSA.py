@@ -69,19 +69,21 @@ class RSA:
     def encrypt(m, public_key):
         e = public_key[0]
         n = public_key[1]
-        c = pow(m, e, n)
+        int_m = bytes_to_long(m.encode(FORMAT))
+        c = pow(int_m, e, n)
         return c
 
     def decrypt(self, crypto_message):
         c = crypto_message
-        m = pow(c, self.private_key, self.n)
+        m_int = pow(c, self.private_key, self.n)
+        m = long_to_bytes(m_int).decode(FORMAT)
         return m
 
 
 '''rsa = RSA()
 rsa2 = RSA()
 
-c_1 = rsa2.encrypt(5000, rsa.get_public_key())
+c_1 = rsa2.encrypt('h', rsa.get_public_key())
 m_1 = rsa.decrypt(c_1)
 
 print(m_1)'''

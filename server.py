@@ -25,20 +25,17 @@ class Server:
             if message:
                 self.type_error_label.config(text='')
                 self.message_entry.delete(0, tk.END)
-                if message.isdigit():
-                    if self.clients:
-                        self.type_error_label.config(text='')
-                        self.messages_area.insert(tk.END, f'[SERVER]: {message}\n')
-                        data = message
-                        client = self.selected_option.get()
-                        if client == 'All':
-                            self.broadcast_data(data)
-                        else:
-                            self.send_data(data, client)
+                if self.clients:
+                    self.type_error_label.config(text='')
+                    self.messages_area.insert(tk.END, f'[SERVER]: {message}\n')
+                    data = message
+                    client = self.selected_option.get()
+                    if client == 'All':
+                        self.broadcast_data(data)
                     else:
-                        self.type_error_label.config(text='No one online')
+                        self.send_data(data, client)
                 else:
-                    self.type_error_label.config(text='You must enter an integer number')
+                    self.type_error_label.config(text='No one online')
             else:
                 self.type_error_label.config(text='You must enter a message')
 
@@ -100,13 +97,13 @@ class Server:
 
     def send_data(self, data, client_name):
         connection, client_public_key = self.clients[client_name]
-        encrypted_data = self.rsa.encrypt(int(data), client_public_key)
+        encrypted_data = self.rsa.encrypt(data, client_public_key)
         connection.sendall(str(encrypted_data).encode(FORMAT))
 
     def broadcast_data(self, data):
         for client_connection, client_public_key in self.clients.values():
             try:
-                encrypted_data = self.rsa.encrypt(int(data), client_public_key)
+                encrypted_data = self.rsa.encrypt(data, client_public_key)
                 client_connection.sendall(str(encrypted_data).encode(FORMAT))
             except socket.error as es:
                 self.messages_area.insert(tk.END, f'[FAILED TO SEND DATA]')
