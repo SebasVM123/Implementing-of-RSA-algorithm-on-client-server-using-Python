@@ -5,6 +5,30 @@ key_size = 2048
 FORMAT = 'UTF-8'
 
 
+def extended_euclidean_algorithm(a, b):
+    g = [b, a]
+    u = [1, 0]
+    v = [0, 1]
+
+    i = 1
+
+    while g[i] != 0:
+        y = g[i - 1] // g[i]
+        next_g = g[i - 1] - (y * g[i])
+        next_u = u[i - 1] - (y * u[i])
+        next_v = v[i - 1] - (y * v[i])
+        g.append(next_g)
+        u.append(next_u)
+        v.append(next_v)
+        i += 1
+
+    if v[i - 1] < 0:
+        v[i - 1] += b
+
+    x = v[i - 1]
+    return x
+
+
 class RSA:
     def __init__(self, e=65537):
         self.e = e
@@ -23,16 +47,14 @@ class RSA:
             p = number.getPrime(int(key_size / 2))
             q = number.getPrime(int(key_size / 2))
 
-        while self.e % (p - 1) == 0:
+        while ((p - 1) * (q - 1)) % self.e == 0:
             p = number.getPrime(int(key_size / 2))
-
-        while self.e % (q - 1) == 0:
             q = number.getPrime(int(key_size / 2))
 
         return p, q
 
     def generate_private_key(self, phi_n):
-        d = number.inverse(self.e, phi_n)
+        d = extended_euclidean_algorithm(self.e, phi_n)
         return d
 
     def get_public_key(self):
@@ -59,7 +81,7 @@ class RSA:
 '''rsa = RSA()
 rsa2 = RSA()
 
-c_1 = rsa2.encrypt('h', rsa.get_public_key())
+c_1 = rsa2.encrypt('holaaaa', rsa.get_public_key())
 m_1 = rsa.decrypt(c_1)
 
 print(m_1)'''
