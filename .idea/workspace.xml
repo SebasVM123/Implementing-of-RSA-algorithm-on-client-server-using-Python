@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2037595-b557-45ad-84d4-54dbe5379737" name="Changes" comment="Feat: la comunicación con números enteros y encriptación y desencriptación funcionan">
+    <list default="true" id="c2037595-b557-45ad-84d4-54dbe5379737" name="Changes" comment="V1.0: comunicación sencilla a través de cifrado asimétrico">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.py" beforeDir="false" afterPath="$PROJECT_DIR$/2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RSA.py" beforeDir="false" afterPath="$PROJECT_DIR$/RSA.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +27,20 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "SebasVM123"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="400ac2a6-0f06-4639-ae19-db7d1c64e394" />
+        <option name="url" value="https://github.com/SebasVM123/Implementing-of-RSA-algorithm-on-client-server-using-Python.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -68,7 +79,7 @@
       <recent name="C:\Users\Asus\PycharmProjects\RSA algorithm\MODEL" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.2">
+  <component name="RunManager" selected="Python.RSA">
     <configuration name="2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="RSA algorithm" />
       <option name="ENV_FILES" value="" />
@@ -181,11 +192,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.client" />
+        <item itemvalue="Python.RSA" />
         <item itemvalue="Python.server" />
+        <item itemvalue="Python.client" />
         <item itemvalue="Python.2" />
         <item itemvalue="Python.client_gui" />
-        <item itemvalue="Python.RSA" />
       </list>
     </recent_temporary>
   </component>
@@ -261,7 +272,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713043361354</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="V1.0: comunicación sencilla a través de cifrado asimétrico">
+      <option name="closed" value="true" />
+      <created>1713074436961</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1713074436961</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -283,6 +302,7 @@
     <MESSAGE value="Feat: agrega un controlador para el cliente y el servidor" />
     <MESSAGE value="Feat: conexión básica entre servidor y cliente" />
     <MESSAGE value="Feat: la comunicación con números enteros y encriptación y desencriptación funcionan" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: la comunicación con números enteros y encriptación y desencriptación funcionan" />
+    <MESSAGE value="V1.0: comunicación sencilla a través de cifrado asimétrico" />
+    <option name="LAST_COMMIT_MESSAGE" value="V1.0: comunicación sencilla a través de cifrado asimétrico" />
   </component>
 </project>
