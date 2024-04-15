@@ -1,7 +1,9 @@
 import socket
 import threading
-import tkinter as tk
-from tkinter import ttk
+from tkinter import *
+import tkinter.ttk as tk
+from tkinter import scrolledtext, Entry, Button, Label
+from ttkthemes import ThemedStyle
 
 from RSA import RSA
 
@@ -24,10 +26,10 @@ class Server:
             message = self.message_entry.get()
             if message:
                 self.type_error_label.config(text='')
-                self.message_entry.delete(0, tk.END)
+                self.message_entry.delete(0, END)
                 if self.clients:
                     self.type_error_label.config(text='')
-                    self.messages_area.insert(tk.END, f'[SERVER]: {message}\n')
+                    self.messages_area.insert(END, f'[SERVER]: {message}\n')
                     data = message
                     client = self.selected_option.get()
                     if client == 'All':
@@ -39,25 +41,30 @@ class Server:
             else:
                 self.type_error_label.config(text='You must enter a message')
 
-        self.window = tk.Tk()
+        self.window = Tk()
         self.window.title('Client-Server Chat [SERVER]')
+        style= ThemedStyle(self.window)
+        style.set_theme("arc")
 
-        self.messages_area = tk.Text(self.window)
-        self.messages_area.pack(expand=True, fill=tk.BOTH)
+        self.frame= tk.Frame(self.window, borderwidth=5, relief="sunken", cursor="clock")
+        self.frame.pack()
+
+        self.messages_area = Text(self.window, font=("Tahoma",11,"bold"))
+        self.messages_area.pack(expand=True, fill=BOTH)
 
         self.message_entry = tk.Entry(self.window)
-        self.message_entry.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+        self.message_entry.pack(side=LEFT, expand=True, fill=BOTH)
 
         self.send_btn = tk.Button(self.window, text='Send', command=process_message)
-        self.send_btn.pack(side=tk.RIGHT)
+        self.send_btn.pack(side=RIGHT)
 
-        self.type_error_label = tk.Label(self.window, text='', fg='red')
+        self.type_error_label = tk.Label(self.window, text='', foreground='red')
         self.type_error_label.pack()
 
         options = ['All']
-        self.selected_option = tk.StringVar(self.window)
+        self.selected_option = StringVar(self.window)
         self.selected_option.set('All')
-        self.clients_combobox = ttk.Combobox(self.window, textvariable=self.selected_option, values=options,
+        self.clients_combobox = tk.Combobox(self.window, textvariable=self.selected_option, values=options,
                                              state='readonly')
         self.clients_combobox.pack()
 
@@ -66,7 +73,7 @@ class Server:
     def listen(self):
         self.socket.bind((self.host, self.port))
         self.socket.listen(10)
-        self.messages_area.insert(tk.END, f'[SERVER STARTED ON {self.host}:{self.port}]\n')
+        self.messages_area.insert(END, f'[SERVER STARTED ON {self.host}:{self.port}]\n')
         print(f'Server started on {self.host}:{self.port}')
 
         while True:
@@ -75,7 +82,7 @@ class Server:
             name = self.ask_name(connection)
 
             self.clients_combobox['values'] = ['All'] + list(self.clients.keys())
-            self.messages_area.insert(tk.END, f'[{name} connected]\n')
+            self.messages_area.insert(END, f'[{name} connected]\n')
             print(f'Accepted connection from {address}')
             threading.Thread(target=self.handle_client, args=(name, connection)).start()
 
@@ -86,12 +93,12 @@ class Server:
                 if not data:
                     break
                 decrypted_data = self.rsa.decrypt(int(data.decode(FORMAT)))
-                self.messages_area.insert(tk.END, f'[{name}]: {decrypted_data}\n')
+                self.messages_area.insert(END, f'[{name}]: {decrypted_data}\n')
                 print(f'Received data from {connection.getpeername()}: {decrypted_data}')
             except socket.error:
                 break
 
-        self.messages_area.insert(tk.END, f'[{name} CLOSED THE CONNECTION]\n')
+        self.messages_area.insert(END, f'[{name} CLOSED THE CONNECTION]\n')
         print(f"Connection from {connection.getpeername()} closed.")
         connection.close()
 
@@ -106,7 +113,7 @@ class Server:
                 encrypted_data = self.rsa.encrypt(data, client_public_key)
                 client_connection.sendall(str(encrypted_data).encode(FORMAT))
             except socket.error as es:
-                self.messages_area.insert(tk.END, f'[FAILED TO SEND DATA]')
+                self.messages_area.insert(END, f'[FAILED TO SEND DATA]')
                 print(f'Failed to send data. Error: {es}')
 
     def ask_name(self, connection):
