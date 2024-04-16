@@ -4,6 +4,7 @@ from tkinter import *
 import tkinter.ttk as tk
 from tkinter import scrolledtext, Entry, Button, Label
 from ttkthemes import ThemedStyle
+from tkinter import font
 
 from RSA import RSA
 
@@ -43,13 +44,16 @@ class Server:
 
         self.window = Tk()
         self.window.title('Client-Server Chat [SERVER]')
+        self.window.geometry("580x510")
+        self.window.resizable(False,False)
         style= ThemedStyle(self.window)
         style.set_theme("arc")
 
-        self.frame= tk.Frame(self.window, borderwidth=5, relief="sunken", cursor="clock")
-        self.frame.pack()
+        available_fonts = font.families()
+        print(available_fonts)
 
-        self.messages_area = Text(self.window, font=("Tahoma",11,"bold"))
+
+        self.messages_area = Text(self.window, font=("Tahoma",11))
         self.messages_area.pack(expand=True, fill=BOTH)
 
         self.message_entry = tk.Entry(self.window)
@@ -64,8 +68,7 @@ class Server:
         options = ['All']
         self.selected_option = StringVar(self.window)
         self.selected_option.set('All')
-        self.clients_combobox = tk.Combobox(self.window, textvariable=self.selected_option, values=options,
-                                             state='readonly')
+        self.clients_combobox = tk.Combobox(self.window, textvariable=self.selected_option, values=options, state='readonly')
         self.clients_combobox.pack()
 
         self.start() # Crea el hilo secundario para escuchar

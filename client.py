@@ -1,6 +1,9 @@
 import socket
 import threading
-import tkinter as tk
+from tkinter import *
+import tkinter.ttk as tk
+from tkinter import scrolledtext, Entry, Button, Label
+from ttkthemes import ThemedStyle
 
 from RSA import RSA
 
@@ -34,9 +37,11 @@ class Client:
             else:
                 self.error_label.config(text='Debes ingresar un nombre de usuario')
 
-        self.login_window = tk.Tk()
+        self.login_window = Tk()
         self.login_window.title('Login')
         self.login_window.geometry('300x200')
+        self.style= ThemedStyle(self.login_window)
+        self.style.set_theme("arc")
 
         self.name_label = tk.Label(self.login_window, text='Username: ')
         self.name_label.pack()
@@ -47,7 +52,7 @@ class Client:
         self.login_btn = tk.Button(self.login_window, text='Login', command=login)
         self.login_btn.pack()
 
-        self.error_label = tk.Label(self.login_window, text='', fg='red')
+        self.error_label = tk.Label(self.login_window, text='', foreground='red')
         self.error_label.pack()
 
     def chat_gui(self):
@@ -55,28 +60,28 @@ class Client:
             message = self.message_entry.get()
             if message:
                 self.type_error_label.config(text='')
-                self.message_entry.delete(0, tk.END)
-                self.messages_area.insert(tk.END, f'[Me]: {message}\n')
+                self.message_entry.delete(0, END)
+                self.messages_area.insert(END, f'[Me]: {message}\n')
                 data = message
                 self.send_data(data)
             else:
                 self.type_error_label.config(text='You must be enter a message')
 
 
-        self.chat_window = tk.Toplevel()
+        self.chat_window = Toplevel()
         self.chat_window.title(f'Client-Server Chat [{self.name}]')
 
-        self.messages_area = tk.Text(self.chat_window)
-        self.messages_area.pack(expand=True, fill=tk.BOTH)
-        self.messages_area.insert(tk.END, f'[SERVER]: Welcome {self.name}\n')
+        self.messages_area = Text(self.chat_window, font=("Tahoma", 11))
+        self.messages_area.pack(expand=True, fill=BOTH)
+        self.messages_area.insert(END, f'[SERVER]: Welcome {self.name}\n')
 
         self.message_entry = tk.Entry(self.chat_window)
-        self.message_entry.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+        self.message_entry.pack(side=LEFT, expand=True, fill=BOTH)
 
         self.send_btn = tk.Button(self.chat_window, text='Send', command=process_message)
-        self.send_btn.pack(side=tk.RIGHT)
+        self.send_btn.pack(side=RIGHT)
 
-        self.type_error_label = tk.Label(self.chat_window, text='', fg='red')
+        self.type_error_label = tk.Label(self.chat_window, text='', foreground='red')
         self.type_error_label.pack()
 
     def connect_to_server(self):
@@ -100,12 +105,12 @@ class Client:
                     self.socket.sendall(f'{self.name}|{client_public_key}'.encode(FORMAT))
                 else:
                     decrypted_data = self.rsa.decrypt(int(data.decode(FORMAT)))
-                    self.messages_area.insert(tk.END, f'[SERVER]: {decrypted_data}\n')
+                    self.messages_area.insert(END, f'[SERVER]: {decrypted_data}\n')
                     print(f'Received data from SERVER: {decrypted_data}')
             except socket.error:
                 break
 
-        self.messages_area.insert(tk.END, f'[SERVER CLOSED THE CONNECTION]\n')
+        self.messages_area.insert(END, f'[SERVER CLOSED THE CONNECTION]\n')
         print(f'SERVER closed the connection')
         self.socket.close()
 
