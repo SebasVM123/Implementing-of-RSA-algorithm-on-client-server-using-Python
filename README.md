@@ -1,16 +1,74 @@
 # Implementing-of-RSA-algorithm-on-client-server-using-Python
+# RSA.py
+## Descripción:
+El archivo RSA.py implementa el algoritmo RSA (Rivest-Shamir-Adleman) utilizado en criptografía asimétrica para la generación de claves públicas y privadas, así como el cifrado y descifrado de mensajes.
 
-Descripción general del proyecto.
+## Funcionalidades:
+- **Generación de Claves RSA:**
+  - Inicialización automática de claves pública y privada RSA al instanciar la clase `RSA`.
+  - Generación de números primos `p` y `q` para formar la clave pública y privada.
 
-## Funcionalidades
+- **Cifrado y Descifrado:**
+  - Método estático `encrypt` para cifrar mensajes utilizando la clave pública.
+  - Método `decrypt` para descifrar mensajes utilizando la clave privada.
 
-- Lista de funcionalidades o características principales del proyecto.
+# Cliente.py
+## Descripción:
+El archivo Cliente.py implementa un cliente de chat para comunicarse con un servidor utilizando sockets TCP/IP y cifrado RSA para garantizar la seguridad de las comunicaciones.
+
+## Funcionalidades:
+- **Inicio de Sesión:**
+  - Interfaz gráfica para iniciar sesión con un nombre de usuario.
+  - Conexión al servidor y gestión de errores.
+
+- **Interfaz de Chat:**
+  - Interfaz gráfica para enviar y recibir mensajes encriptados.
+  - Envío de mensajes a todos los usuarios conectados o a usuarios específicos.
+
+- **Comunicación Segura:**
+  - Cifrado RSA de mensajes antes de enviarlos al servidor.
+  - Descifrado RSA de mensajes recibidos del servidor.
+
+# Servidor.py
+## Descripción:
+El archivo Servidor.py implementa un servidor de chat que acepta conexiones de múltiples clientes, gestiona la comunicación entre ellos y utiliza el cifrado RSA para asegurar las comunicaciones.
+
+## Funcionalidades:
+- **Gestión de Conexiones:**
+  - Acepta conexiones de clientes utilizando sockets TCP/IP.
+  - Registra clientes conectados y maneja la comunicación entre ellos.
+
+- **Interfaz de Administración:**
+  - Interfaz gráfica para administrar la comunicación del servidor.
+  - Permite enviar mensajes a todos los clientes o a clientes específicos.
+
+- **Seguridad con RSA:**
+  - Utiliza cifrado RSA para encriptar mensajes antes de enviarlos a los clientes.
+  - Descifra mensajes cifrados recibidos de los clientes utilizando RSA.
 
 ## Uso
 
-1. Instrucciones para clonar o descargar el repositorio.
-2. Pasos para ejecutar el proyecto o utilizarlo.
-3. Cualquier otra información relevante sobre el uso del proyecto.
+1. **Clonar el Repositorio:**
+   - Para clonar el repositorio, utiliza el siguiente comando en la terminal:
+     ```bash
+     git clone https://github.com/SebasVM123/Implementing-of-RSA-algorithm-on-client-server-using-Python.git
+     ```
+     Reemplaza `tu-usuario` con tu nombre de usuario en GitHub y `nombre-repositorio` con el nombre de tu repositorio.
+
+2. **Ejecutar el Proyecto:**
+   - Accede al directorio del repositorio clonado:
+     ```bash
+     cd nombre-repositorio
+     ```
+   - Si el proyecto tiene dependencias, instálalas utilizando el gestor de paquetes correspondiente (por ejemplo, pip en Python):
+     ```bash
+     pip install -r requirements.txt
+     ```
+   - Ejecuta el proyecto principal (por ejemplo, `main.py`) para iniciar la aplicación:
+     ```bash
+     python main.py
+     ```
+     Reemplaza `main.py` con el nombre del archivo principal de tu aplicación si es diferente.
 
 ## Contribuyentes
 
