@@ -4,7 +4,6 @@ from tkinter import *
 import tkinter.ttk as tk
 from tkinter import scrolledtext, Entry, Button, Label
 from ttkthemes import ThemedStyle
-from tkinter import font
 
 from RSA import RSA
 
@@ -48,9 +47,6 @@ class Server:
         self.window.resizable(False,False)
         style= ThemedStyle(self.window)
         style.set_theme("arc")
-
-        available_fonts = font.families()
-        print(available_fonts)
 
 
         self.messages_area = Text(self.window, font=("Tahoma",11))
